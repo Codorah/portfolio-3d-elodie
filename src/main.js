@@ -389,17 +389,38 @@ const setResumeMobileView = (view) => {
 
     const cols = [resumeColumns.exp, resumeColumns.edu].filter(Boolean);
     cols.forEach((col) => col.classList.remove('mobile-visible'));
+    if (resumeColumns.exp) {
+        resumeColumns.exp.setAttribute('aria-hidden', 'true');
+        resumeColumns.exp.setAttribute('tabindex', '-1');
+    }
+    if (resumeColumns.edu) {
+        resumeColumns.edu.setAttribute('aria-hidden', 'true');
+        resumeColumns.edu.setAttribute('tabindex', '-1');
+    }
 
     if (!isMobile) {
         cols.forEach((col) => col.classList.add('mobile-visible'));
-        resumeSwitchBtns.forEach((btn) => btn.classList.remove('active'));
+        cols.forEach((col) => {
+            col.setAttribute('aria-hidden', 'false');
+            col.removeAttribute('tabindex');
+        });
+        resumeSwitchBtns.forEach((btn) => {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-selected', 'false');
+        });
         return;
     }
 
     const targetCol = view === 'edu' ? resumeColumns.edu : resumeColumns.exp;
-    if (targetCol) targetCol.classList.add('mobile-visible');
+    if (targetCol) {
+        targetCol.classList.add('mobile-visible');
+        targetCol.setAttribute('aria-hidden', 'false');
+        targetCol.removeAttribute('tabindex');
+    }
     resumeSwitchBtns.forEach((btn) => {
-        btn.classList.toggle('active', btn.dataset.resumeView === (view === 'edu' ? 'edu' : 'exp'));
+        const active = btn.dataset.resumeView === (view === 'edu' ? 'edu' : 'exp');
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-selected', active ? 'true' : 'false');
     });
 };
 
