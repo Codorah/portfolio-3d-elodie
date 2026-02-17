@@ -375,24 +375,95 @@ if (resumeItems.length > 0 && 'IntersectionObserver' in window) {
     resumeItems.forEach((item) => resumeObserver.observe(item));
 }
 
-// 7. MOBILE RESUME ACCORDION
-if (window.matchMedia('(max-width: 900px)').matches) {
-    const resumeCols = document.querySelectorAll('.resume-col');
-    resumeCols.forEach((col) => {
+// 7. MOBILE RESUME LAYOUT (SWITCH + SEE MORE)
+const resumeSection = document.getElementById('resume');
+const resumeSwitchBtns = resumeSection ? Array.from(resumeSection.querySelectorAll('.resume-switch-btn')) : [];
+const resumeColumns = resumeSection ? {
+    exp: resumeSection.querySelector('.resume-col--exp'),
+    edu: resumeSection.querySelector('.resume-col--edu')
+} : {};
+
+const setResumeMobileView = (view) => {
+    if (!resumeSection) return;
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+
+    const cols = [resumeColumns.exp, resumeColumns.edu].filter(Boolean);
+    cols.forEach((col) => col.classList.remove('mobile-visible'));
+
+    if (!isMobile) {
+        cols.forEach((col) => col.classList.add('mobile-visible'));
+        resumeSwitchBtns.forEach((btn) => btn.classList.remove('active'));
+        return;
+    }
+
+    const targetCol = view === 'edu' ? resumeColumns.edu : resumeColumns.exp;
+    if (targetCol) targetCol.classList.add('mobile-visible');
+    resumeSwitchBtns.forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset.resumeView === (view === 'edu' ? 'edu' : 'exp'));
+    });
+};
+
+const setupResumeSeeMore = () => {
+    if (!resumeSection) return;
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    const cols = [resumeColumns.exp, resumeColumns.edu].filter(Boolean);
+
+    cols.forEach((col) => {
         const items = Array.from(col.querySelectorAll('.resume-item'));
-        if (items.length === 0) return;
+        let toggleBtn = col.querySelector('.resume-more-btn');
 
-        // Keep one open by default for readability.
-        const initial = items.find((item) => item.classList.contains('active')) || items[0];
-        initial.classList.add('open');
+        items.forEach((item) => item.classList.remove('resume-item-hidden'));
+        col.classList.remove('expanded');
 
-        items.forEach((item) => {
-            item.addEventListener('click', () => {
-                const isOpen = item.classList.contains('open');
-                items.forEach((i) => i.classList.remove('open'));
-                if (!isOpen) item.classList.add('open');
-            });
+        if (!isMobile || items.length <= 4) {
+            if (toggleBtn) toggleBtn.remove();
+            return;
+        }
+
+        items.forEach((item, index) => {
+            if (index >= 4) item.classList.add('resume-item-hidden');
         });
+
+        if (!toggleBtn) {
+            toggleBtn = document.createElement('button');
+            toggleBtn.type = 'button';
+            toggleBtn.className = 'resume-more-btn';
+            col.appendChild(toggleBtn);
+        }
+
+        const refreshLabel = () => {
+            toggleBtn.textContent = col.classList.contains('expanded') ? 'Voir moins' : 'Voir plus';
+        };
+
+        toggleBtn.onclick = () => {
+            col.classList.toggle('expanded');
+            const expanded = col.classList.contains('expanded');
+            items.forEach((item, index) => {
+                if (index >= 4) item.classList.toggle('resume-item-hidden', !expanded);
+            });
+            refreshLabel();
+        };
+
+        refreshLabel();
+    });
+};
+
+if (resumeSection) {
+    resumeSwitchBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            setResumeMobileView(btn.dataset.resumeView === 'edu' ? 'edu' : 'exp');
+            setupResumeSeeMore();
+        });
+    });
+
+    const initialView = resumeSwitchBtns.find((btn) => btn.classList.contains('active'))?.dataset.resumeView || 'exp';
+    setResumeMobileView(initialView);
+    setupResumeSeeMore();
+
+    window.addEventListener('resize', () => {
+        const activeView = resumeSwitchBtns.find((btn) => btn.classList.contains('active'))?.dataset.resumeView || 'exp';
+        setResumeMobileView(activeView);
+        setupResumeSeeMore();
     });
 }
 
