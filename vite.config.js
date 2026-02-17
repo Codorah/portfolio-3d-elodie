@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite';
 
-// GitHub Pages project site URL:
-// https://codorah.github.io/portfolio-3d-elodie/
+// Relative asset paths so the same build works on:
+// - GitHub Pages project URLs
+// - Vercel root/custom domains
 export default defineConfig({
-  base: '/portfolio-3d-elodie/',
+  base: './',
 });
-
