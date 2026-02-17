@@ -375,6 +375,27 @@ if (resumeItems.length > 0 && 'IntersectionObserver' in window) {
     resumeItems.forEach((item) => resumeObserver.observe(item));
 }
 
+// 7. MOBILE RESUME ACCORDION
+if (window.matchMedia('(max-width: 900px)').matches) {
+    const resumeCols = document.querySelectorAll('.resume-col');
+    resumeCols.forEach((col) => {
+        const items = Array.from(col.querySelectorAll('.resume-item'));
+        if (items.length === 0) return;
+
+        // Keep one open by default for readability.
+        const initial = items.find((item) => item.classList.contains('active')) || items[0];
+        initial.classList.add('open');
+
+        items.forEach((item) => {
+            item.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+                items.forEach((i) => i.classList.remove('open'));
+                if (!isOpen) item.classList.add('open');
+            });
+        });
+    });
+}
+
 // 6. PROJECT CASE STUDY PANEL
 const caseStudies = {
     'SAYGOO Platform': {

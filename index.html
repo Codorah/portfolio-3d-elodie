@@ -326,10 +326,13 @@
                         <div class="item"><i class="fas fa-map-marker-alt"></i> Lomé, Togo</div>
                     </div>
                 </div>
-                <form class="contact-form" action="mailto:codorah@hotmail.com" method="post" enctype="text/plain">
+                <form class="contact-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST">
                     <input type="text" name="name" placeholder="Votre Nom" required>
+                    <input type="email" name="email" placeholder="Votre Email" required>
                     <input type="text" name="subject" placeholder="Sujet" required>
                     <textarea name="message" placeholder="Votre Message..." rows="4" required></textarea>
+                    <input type="hidden" name="_subject" value="Nouveau message depuis ton portfolio">
+                    <input type="text" name="_gotcha" style="display:none">
                     <button type="submit" class="btn-primary">ENVOYER MESSAGE</button>
                 </form>
             </div>
