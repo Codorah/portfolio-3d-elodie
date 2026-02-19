@@ -37,7 +37,7 @@ for (let i = 0; i < STAR_COUNT; i++) {
 geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 const stars = new THREE.Points(
     geometry,
-    new THREE.PointsMaterial({ color: 0xff2d75, size: 0.15, transparent: true, opacity: 0.8 })
+    new THREE.PointsMaterial({ color: 0x8a3ffc, size: 0.15, transparent: true, opacity: 0.8 })
 );
 scene.add(stars);
 
@@ -45,11 +45,11 @@ scene.add(stars);
 const storyGroup = new THREE.Group();
 let storyCore = new THREE.Mesh(
     new THREE.TorusKnotGeometry(6, 1.6, 120, 20),
-    new THREE.MeshBasicMaterial({ color: 0x00e5ff, wireframe: true, transparent: true, opacity: 0.25 })
+    new THREE.MeshBasicMaterial({ color: 0xc9a4ff, wireframe: true, transparent: true, opacity: 0.25 })
 );
 const storyRing = new THREE.Mesh(
     new THREE.TorusGeometry(12, 0.16, 12, 120),
-    new THREE.MeshBasicMaterial({ color: 0xff2d75, transparent: true, opacity: 0.28 })
+    new THREE.MeshBasicMaterial({ color: 0x8a3ffc, transparent: true, opacity: 0.28 })
 );
 storyGroup.add(storyCore);
 storyGroup.add(storyRing);
@@ -95,20 +95,20 @@ const startStoryMorph = (shape) => {
 };
 
 const sectionColorMap = {
-    home: '#ff2d75',
-    about: '#ff4d8a',
-    resume: '#ff6a5f',
-    services: '#00e5ff',
-    projects: '#73f5ff',
-    contact: '#9f83ff'
+    home: '#8a3ffc',
+    about: '#9f5dff',
+    resume: '#7b3ed6',
+    services: '#6c31cf',
+    projects: '#b89aff',
+    contact: '#d7c0ff'
 };
 const sectionStoryMap = {
-    home: { x: 18, y: -4, z: -28, rx: 0.2, ry: 0.1, rz: 0.1, scale: 1.0, core: '#00e5ff', ring: '#ff2d75', shape: 'torusKnot' },
-    about: { x: -18, y: 6, z: -34, rx: 0.5, ry: 1.0, rz: 0.2, scale: 1.1, core: '#73f5ff', ring: '#ff4d8a', shape: 'icosahedron' },
-    resume: { x: 15, y: 4, z: -30, rx: 1.0, ry: 0.4, rz: 0.8, scale: 0.95, core: '#ff6a5f', ring: '#ffc857', shape: 'octahedron' },
-    services: { x: -15, y: -6, z: -27, rx: 0.4, ry: 1.4, rz: 1.2, scale: 1.2, core: '#00e5ff', ring: '#32ff95', shape: 'torus' },
-    projects: { x: 14, y: 6, z: -33, rx: 1.3, ry: 0.8, rz: 0.2, scale: 1.25, core: '#9f83ff', ring: '#73f5ff', shape: 'dodecahedron' },
-    contact: { x: -12, y: 2, z: -25, rx: 0.2, ry: 1.8, rz: 0.6, scale: 1.0, core: '#ffffff', ring: '#00e5ff', shape: 'sphere' }
+    home: { x: 18, y: -4, z: -28, rx: 0.2, ry: 0.1, rz: 0.1, scale: 1.0, core: '#c9a4ff', ring: '#8a3ffc', shape: 'torusKnot' },
+    about: { x: -18, y: 6, z: -34, rx: 0.5, ry: 1.0, rz: 0.2, scale: 1.1, core: '#d7bfff', ring: '#9f5dff', shape: 'icosahedron' },
+    resume: { x: 15, y: 4, z: -30, rx: 1.0, ry: 0.4, rz: 0.8, scale: 0.95, core: '#a682ff', ring: '#7b3ed6', shape: 'octahedron' },
+    services: { x: -15, y: -6, z: -27, rx: 0.4, ry: 1.4, rz: 1.2, scale: 1.2, core: '#b08bff', ring: '#6c31cf', shape: 'torus' },
+    projects: { x: 14, y: 6, z: -33, rx: 1.3, ry: 0.8, rz: 0.2, scale: 1.25, core: '#e2d3ff', ring: '#b89aff', shape: 'dodecahedron' },
+    contact: { x: -12, y: 2, z: -25, rx: 0.2, ry: 1.8, rz: 0.6, scale: 1.0, core: '#ffffff', ring: '#c9a4ff', shape: 'sphere' }
 };
 const targetStarColor = new THREE.Color(sectionColorMap.home);
 const currentStarColor = new THREE.Color(sectionColorMap.home);
@@ -519,6 +519,12 @@ const caseStudies = {
         role: 'Role: design UI/UX, animation 3D Three.js, optimisation performance et accessibilite.',
         result: 'Resultat: portfolio plus memorable, interactif et aligne avec un positionnement premium.',
         link: '#home'
+    },
+    'CFA Express': {
+        context: 'Objectif: faciliter la conversion de devises rapidement depuis mobile et desktop.',
+        role: 'Role: conception et developpement en React, architecture PWA et gestion du mode hors ligne.',
+        result: 'Resultat: application deployee sur Vercel, utilisable en ligne et hors ligne avec mise a jour des taux.',
+        link: 'https://cfa-express.vercel.app'
     }
 };
 
