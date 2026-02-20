@@ -525,6 +525,12 @@ const caseStudies = {
         role: 'Role: conception et developpement en React, architecture PWA et gestion du mode hors ligne.',
         result: 'Resultat: application deployee sur Vercel, utilisable en ligne et hors ligne avec mise a jour des taux.',
         link: 'https://cfa-express.vercel.app'
+    },
+    'NOUS': {
+        context: 'Objectif: proposer un espace quotidien de motivation et de journal personnel prive avec vues calendrier annuel et timeline.',
+        role: 'Role: conception produit PWA, moteur de 5000 messages self-love sur 12 ans, notifications, rappels et securite locale par code PIN Web Crypto.',
+        result: 'Resultat: application installable mobile/desktop, usage hors ligne, metadonnees meteo/localisation, indicateurs humeur et export du journal en Markdown.',
+        link: 'https://nous-2026.vercel.app'
     }
 };
 
