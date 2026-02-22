@@ -589,4 +589,37 @@ window.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closeCaseModal();
 });
 
+// 8. CONTACT FORM -> MAILTO
+const contactForm = document.querySelector('.contact-form');
+if (contactForm instanceof HTMLFormElement) {
+    contactForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const getFieldValue = (selector) => {
+            const field = contactForm.querySelector(selector);
+            if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement) {
+                return field.value.trim();
+            }
+            return '';
+        };
+
+        const recipient = contactForm.dataset.mailto || 'codorah@hotmail.com';
+        const name = getFieldValue('input[name="name"]');
+        const email = getFieldValue('input[name="email"]');
+        const subject = getFieldValue('input[name="subject"]') || 'Nouveau message depuis ton portfolio';
+        const message = getFieldValue('textarea[name="message"]');
+
+        const body = [
+            `Nom: ${name}`,
+            `Email: ${email}`,
+            '',
+            'Message:',
+            message
+        ].join('\n');
+
+        const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailtoUrl;
+    });
+}
+
 window.dispatchEvent(new Event('scroll'));
