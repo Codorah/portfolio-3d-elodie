@@ -531,6 +531,12 @@ const caseStudies = {
         role: 'Role: conception produit PWA, moteur de 5000 messages self-love sur 12 ans, notifications, rappels et securite locale par code PIN Web Crypto.',
         result: 'Resultat: application installable mobile/desktop, usage hors ligne, metadonnees meteo/localisation, indicateurs humeur et export du journal en Markdown.',
         link: 'https://nous-2026.vercel.app'
+    },
+    'Ce Soir On Mange Quoi ?': {
+        context: 'Objectif: aider les etudiants togolais a trouver rapidement un repas simple et abordable avec les ingredients disponibles.',
+        role: 'Role: developpement React + Vite, architecture PWA offline-first, filtres dynamiques par ingredients et animations Framer Motion.',
+        result: 'Resultat: application web installable avec frigo virtuel, roue de choix aleatoire, mode budget serre (<500 FCFA) et fiches recettes express.',
+        link: 'https://ce-soir-on-mange-quoi.vercel.app'
     }
 };
 
