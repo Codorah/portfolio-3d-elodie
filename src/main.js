@@ -1,4 +1,4 @@
-﻿import * as THREE from 'three';
+import * as THREE from 'three';
 
 // 1. GESTION DU LOADER
 window.addEventListener('load', () => {
@@ -537,6 +537,42 @@ const caseStudies = {
         role: 'Role: developpement React + Vite, architecture PWA offline-first, filtres dynamiques par ingredients et animations Framer Motion.',
         result: 'Resultat: application web installable avec frigo virtuel, roue de choix aleatoire, mode budget serre (<500 FCFA) et fiches recettes express.',
         link: 'https://ce-soir-on-mange-quoi.vercel.app'
+    },
+    'barSafe': {
+        context: 'Objectif: optimiser et sécuriser la gestion des établissements de nuit.',
+        role: 'Role: Conception SaaS en TypeScript, gestion rôles (serveurs, caissiers, admin).',
+        result: 'Resultat: Réduction des pertes, limitations des fraudes. (Projet en cours)',
+        link: '#contact'
+    },
+    'LINKEDIN-Translator': {
+        context: 'Objectif: Transformer le langage courant en posts structurés et générateurs d\'engagement LinkedIn.',
+        role: 'Role: Développement Frontend React, logique d\'algorithme viralité sans IA classique.',
+        result: 'Resultat: Interface Web générant du contenu viral instantanément.',
+        link: 'https://linkedin-trans.vercel.app/'
+    },
+    'MediaCleaner-Redact-Pro': {
+        context: 'Objectif: Solution orientée confidentialité pour le masquage automatique de données.',
+        role: 'Role: Architecture cloud-native FastAPI, pipelines asynchrones EasyOCR/OpenCV, frontend React.',
+        result: 'Resultat: Système complet traitant textes, vidéos et PDFs avec un haut standard sécuritaire.',
+        link: '#contact'
+    },
+    'Vortex': {
+        context: 'Objectif: Créer une interface expérimentale 3D pour représenter l\'IA Thinking Process.',
+        role: 'Role: Graphes 3D, Shaders GLSL avancés et animations via React Three Fiber & GSAP.',
+        result: 'Resultat: Expérience générative fluide et interactive repoussant l\'immersion.',
+        link: 'https://codorah-vortex.vercel.app/'
+    },
+    'Lumina Elite (Puzzle)': {
+        context: 'Objectif: Gamifier la messagerie secrète à travers un classique.',
+        role: 'Role: Frontend React 19, Vite, intégration logique cryptoludique de victoire.',
+        result: 'Resultat: Une app virale et engageante pour échanger des secrets sous forme ludique.',
+        link: 'https://p-lumina.vercel.app/'
+    },
+    'Analytics Dashboard': {
+        context: 'Objectif: Consolider les data metrics SaaS et pilotage KPI en temps réel.',
+        role: 'Role: Stack fullstack Django (Back) + React (Front) et modélisation PostgreSQL.',
+        result: 'Resultat: Suivi temps réel ultra-performant pour la prise de décision stratégique.',
+        link: '#contact'
     }
 };
 
@@ -593,6 +629,41 @@ if (caseModal) {
 
 window.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closeCaseModal();
+});
+
+// 8. SPOTLIGHT EFFECT & TIMELINE SYNC
+document.addEventListener('DOMContentLoaded', () => {
+    // A. Spotlight Effect for Cards
+    const cards = document.querySelectorAll('.service-box, .project-card');
+    cards.forEach(card => {
+        card.classList.add('has-spotlight');
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
+    });
+
+    // B. Resume Neon Timeline Sync
+    const resumeCols = document.querySelectorAll('.resume-col');
+    if (resumeCols.length > 0) {
+        window.addEventListener('scroll', () => {
+            resumeCols.forEach(col => {
+                const rect = col.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                // Calcule le pourcentage de visibilite de la timeline (s'illumine au scroll)
+                if (rect.top < windowHeight * 0.8) {
+                    let progress = ((windowHeight * 0.8 - rect.top) / rect.height) * 100;
+                    progress = Math.min(100, Math.max(0, progress));
+                    col.style.setProperty('--scroll-height', `${progress}%`);
+                } else {
+                    col.style.setProperty('--scroll-height', `0%`);
+                }
+            });
+        });
+    }
 });
 
 window.dispatchEvent(new Event('scroll'));
