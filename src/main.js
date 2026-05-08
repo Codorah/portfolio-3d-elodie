@@ -335,7 +335,7 @@ if (!prefersReducedMotion) {
             const y = event.clientY - rect.top;
             const rotateY = ((x / rect.width) - 0.5) * 12;
             const rotateX = (0.5 - (y / rect.height)) * 10;
-            card.style.transform = `translateY(-8px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+            card.style.transform = `translateY(-10px) scale(1.02) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
 
             if (card.classList.contains('project-card')) {
                 card.style.setProperty('--mx', `${x}px`);
@@ -490,16 +490,22 @@ if (resumeSection) {
 
 // 6. PROJECT CASE STUDY PANEL
 const caseStudies = {
+    'EduFast': {
+        context: 'Objectif: Créer une plateforme d\'apprentissage numérique intelligente adaptée au contexte africain avec IA et mode offline.',
+        role: 'Role: Conception EdTech, intégration d\'une mascotte IA éducative et d\'un modèle freemium gamifié.',
+        result: 'Resultat: (Projet en cours) Plateforme pensée mobile-first avec des parcours d\'apprentissage interactifs.',
+        link: '#contact'
+    },
     'SAYGOO Platform': {
         context: 'Objectif: construire une plateforme web complete et evolutive pour centraliser les besoins metier.',
         role: 'Role: architecture technique, backend, integration des donnees et stabilite applicative.',
         result: 'Resultat: plateforme plus robuste, meilleure maintenabilite et base solide pour la croissance.',
         link: '#contact'
     },
-    'Clinic+': {
-        context: 'Objectif: proposer une application mobile sante plus accessible et plus intelligente.',
-        role: 'Role: conception produit, integration IA et coordination des briques techniques Flutter.',
-        result: 'Resultat: prototype fonctionnel avec experience utilisateur modernisee pour le medical.',
+    'Clinique Plus': {
+        context: 'Contexte: Solution de santé numérique pour le Togo. Chaque patient dispose d\'un QR code médical personnel — scannable en urgence pour accéder instantanément à ses données vitales (groupe sanguin, allergies, traitements en cours), même hors-ligne.',
+        role: 'Rôle: Conception produit Flutter, architecture QR code sécurisé (chiffrement bout-en-bout, accès d\'urgence limité dans le temps), modèle Freemium (version gratuite survie + Premium 5 000 FCFA/an avec historique multi-cliniques et alertes médicaments).',
+        result: 'Résultat: Réduit les erreurs médicales dues au manque d\'historique. Le QR code peut être imprimé sur carte plastifiée ou bracelet. Partenariats prévus avec cliniques, pharmacies et assureurs.',
         link: '#contact'
     },
     'CODORAH': {
@@ -667,3 +673,102 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 window.dispatchEvent(new Event('scroll'));
+
+// 9. PROJECT ENHANCEMENTS — LIVE PREVIEW + BADGES + FILTER
+const initProjectEnhancements = () => {
+    const allCards = document.querySelectorAll('.project-card');
+
+    // ─── 1. Detect status and inject badges ───
+    allCards.forEach(card => {
+        const link = card.querySelector('.project-link');
+        const projectImg = card.querySelector('.project-img');
+        const isWip = card.dataset.inProgress === 'true';
+
+        if (isWip) {
+            card.dataset.status = 'wip';
+            return;
+        }
+
+        if (!link || !projectImg) return;
+        const href = link.getAttribute('href') || '';
+        const isExternal = href.startsWith('http');
+
+        if (isExternal) {
+            card.dataset.status = 'live';
+            card.dataset.previewUrl = href;
+
+            // Inject LIVE badge
+            if (!projectImg.querySelector('.live-badge')) {
+                const badge = document.createElement('div');
+                badge.className = 'live-badge';
+                badge.innerHTML = '<span class="live-dot"></span>LIVE';
+                projectImg.appendChild(badge);
+            }
+        }
+    });
+
+    // ─── 2. Lazy-load previews when projects section enters view ───
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection && 'IntersectionObserver' in window) {
+        let loaded = false;
+        const obs = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !loaded) {
+                loaded = true;
+                loadAllPreviews();
+                obs.disconnect();
+            }
+        }, { threshold: 0.08 });
+        obs.observe(projectsSection);
+    }
+
+    // ─── 3. Filter tabs ───
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-selected', 'false');
+            });
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+
+            const filter = btn.dataset.filter;
+            allCards.forEach(card => {
+                if (filter === 'all') {
+                    card.classList.remove('filter-hidden');
+                } else {
+                    card.classList.toggle('filter-hidden', card.dataset.status !== filter);
+                }
+            });
+        });
+    });
+};
+
+const loadAllPreviews = () => {
+    document.querySelectorAll('.project-card[data-preview-url]').forEach(card => {
+        const url = card.dataset.previewUrl;
+        const projectImg = card.querySelector('.project-img');
+        if (!projectImg || projectImg.querySelector('.link-preview-img')) return;
+
+        projectImg.classList.add('loading-preview');
+
+        fetch(`https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&meta=false`)
+            .then(r => r.json())
+            .then(data => {
+                projectImg.classList.remove('loading-preview');
+                if (data.status === 'success' && data.data?.screenshot?.url) {
+                    const img = document.createElement('img');
+                    img.src = data.data.screenshot.url;
+                    img.className = 'link-preview-img';
+                    img.alt = 'Aperçu du projet';
+                    img.loading = 'lazy';
+                    img.onload = () => projectImg.classList.add('has-preview');
+                    // Insert before other children so it stays behind the icon
+                    projectImg.insertBefore(img, projectImg.firstChild);
+                }
+            })
+            .catch(() => projectImg.classList.remove('loading-preview'));
+    });
+};
+
+initProjectEnhancements();

@@ -255,8 +255,26 @@
 
         <section id="projects" class="section-container">
             <h2 class="section-title">PROJETS RÉCENTS</h2>
+            <div class="projects-filter" role="tablist" aria-label="Filtrer les projets">
+                <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">✦ Tous</button>
+                <button class="filter-btn" data-filter="live" role="tab" aria-selected="false"><span class="filter-live-dot"></span>Live</button>
+                <button class="filter-btn" data-filter="wip" role="tab" aria-selected="false">🔧 En cours</button>
+            </div>
             <div class="projects-grid">
                 
+                <div class="project-card" data-aos="flip-up" data-in-progress="true">
+                    <div class="project-img" style="background: linear-gradient(45deg, #201340, #000);">
+                        <i class="fas fa-graduation-cap"></i>
+                        <div class="status-badge" style="position:absolute; top: 10px; right: 10px; opacity: 0.8; font-size: 0.6rem; margin: 0;">En cours</div>
+                    </div>
+                    <div class="project-info">
+                        <h3>EduFast</h3>
+                        <p>Plateforme d'apprentissage numérique intelligente conçue pour l'Afrique, avec IA éducative et gamification.</p>
+                        <div class="tags"><span>EdTech</span><span>IA</span><span>Mobile-first</span></div>
+                        <a class="project-link" href="#contact">Discuter du projet</a>
+                    </div>
+                </div>
+
                 <div class="project-card" data-aos="flip-up">
                     <div class="project-img" style="background: linear-gradient(45deg, #1f1038, #000);">
                         <i class="fas fa-globe"></i>
@@ -274,9 +292,9 @@
                         <i class="fas fa-heartbeat"></i>
                     </div>
                     <div class="project-info">
-                        <h3>Clinic+</h3>
-                        <p>Application mobile médicale innovante avec intégration d'Intelligence Artificielle.</p>
-                        <div class="tags"><span>Flutter</span><span>IA</span><span>Santé</span></div>
+                        <h3>Clinique Plus</h3>
+                        <p>Mémoire médicale numérique portable via QR code personnel. En cas d'urgence, accès instantané aux données vitales du patient — même hors-ligne.</p>
+                        <div class="tags"><span>Flutter</span><span>HealthTech</span><span>QR Code</span><span>Freemium</span></div>
                         <a class="project-link" href="#contact">Discuter du projet</a>
                     </div>
                 </div>
