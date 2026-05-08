@@ -6,7 +6,21 @@ window.addEventListener('load', () => {
         const loader = document.getElementById('loader');
         if (loader) loader.classList.add('loader-up');
         AOS.init({ duration: 1000, once: true });
-    }, 2000);
+
+        // Animated counters for hero stats
+        const statNums = document.querySelectorAll('.hero-stat-num[data-count]');
+        statNums.forEach(el => {
+            const target = parseInt(el.dataset.count, 10);
+            const duration = 1200;
+            const step = target / (duration / 16);
+            let current = 0;
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) { current = target; clearInterval(timer); }
+                el.textContent = Math.floor(current);
+            }, 16);
+        });
+    }, 2100);
 });
 
 // 2. BACKGROUND ANIME
