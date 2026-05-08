@@ -718,6 +718,18 @@ const initProjectEnhancements = () => {
                 badge.innerHTML = '<span class="live-dot"></span>LIVE';
                 projectImg.appendChild(badge);
             }
+
+            // Inject hover "Visit" CTA on the image
+            if (!projectImg.querySelector('.preview-visit-cta')) {
+                const cta = document.createElement('a');
+                cta.href = href;
+                cta.target = '_blank';
+                cta.rel = 'noopener noreferrer';
+                cta.className = 'preview-visit-cta';
+                cta.innerHTML = '<span><i class="fas fa-external-link-alt" style="font-size:0.75rem"></i> Visiter le projet</span>';
+                projectImg.appendChild(cta);
+            }
+
         }
     });
 
