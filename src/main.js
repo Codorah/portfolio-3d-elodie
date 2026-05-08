@@ -798,3 +798,14 @@ const loadAllPreviews = () => {
 };
 
 initProjectEnhancements();
+
+// 10. BACK TO TOP BUTTON
+const backToTopBtn = document.getElementById('backToTop');
+if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+        backToTopBtn.classList.toggle('visible', window.scrollY > 500);
+    }, { passive: true });
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
