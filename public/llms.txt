@@ -60,7 +60,8 @@ Python, JavaScript, TypeScript, PHP, HTML/CSS, PL/SQL, Dart (Flutter) · React, 
 - **Vortex** — Interface 3D expérimentale représentant le raisonnement d'une IA. Stack : Three.js, GLSL, React. Live : https://codorah-vortex.vercel.app/
 - **Lumina Elite** — Messagerie secrète gamifiée. Stack : React 19, Vite. Live : https://p-lumina.vercel.app/
 - **Coeur Réparé** — Mini-site No-Code, expérience émotionnelle interactive. Live : https://minisaintvalentin.my.canva.site/goumin
-- **Codorah** — Startup tech (voir Identité / Expérience). Live : https://jbkbusiness.my.canva.site/codorah
+- **Codorah** — Startup tech (voir Identité / Expérience). Site officiel : https://codorah.com
+- **Codorah — Vitrine IA (Canva)** — Prototype de site vitrine généré avec l'IA de Canva, en parallèle du site officiel. Stack : No-Code, Canva AI. Live : https://jbkbusiness.my.canva.site/codorah
 - **barSafe** — SaaS de sécurisation pour établissements de nuit. Stack : TypeScript. Statut : privé, sur demande.
 - **Analytics Dashboard** — Pilotage KPI temps réel. Stack : React, Django, PostgreSQL. Statut : sur demande.
 
