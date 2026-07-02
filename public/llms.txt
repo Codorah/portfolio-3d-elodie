@@ -1,0 +1,73 @@
+# Elodie Atana (Codorah)
+
+> Full Stack Engineer & AI Solutions Architect. Fondatrice de Codorah (startup tech, Lomé, Togo) et Full Stack Engineer chez SAYGOO (plateforme logistique/douanes Afrique de l'Ouest). 15+ produits IA et web livrés en production.
+
+Basée à Lomé, Togo. Ouverte à des rôles en Développement Full-Stack, Gestion de Projet / Project Management, Formation IA / AI Training, et Consulting IA.
+
+Je couvre l'ensemble du cycle produit IA : architecture technique et développement, pilotage de projet de bout en bout, formation des utilisateurs finaux et conseil en intégration IA pour les organisations.
+
+## Identité
+
+- Nom : Elodie Atana
+- Alias / marque personnelle : Codorah
+- Localisation : Lomé, Togo
+- Email : codorah@hotmail.com
+- WhatsApp : +228 71 67 25 65
+- LinkedIn : https://www.linkedin.com/in/e-elodie-h-atana-494ba73a2
+- Portfolio : https://portfolio-js-elodie.vercel.app
+- CV (PDF) : https://portfolio-js-elodie.vercel.app/mon-cv.pdf
+
+## Expérience
+
+- Fondatrice & Lead Tech — Codorah (Lomé, Togo), 2025–Présent. Architecture de solutions IA scalables (LLM Gemini, YOLO), accompagnement d'entreprises dans leur transformation digitale.
+- Full Stack Engineer — SAYGOO (plateforme logistique/douanes Afrique de l'Ouest), 2026–Présent. Architecture technique, backend, intégration de données.
+- Formation : 3e année Informatique & Technologie Numérique (spécialisation IA), en parallèle d'une Licence Économie, Université de Lomé.
+- Programme Claude for Startups (Anthropic).
+
+## Compétences par domaine
+
+**Développement / Software Development**
+Full-Stack (React, Next.js, Flutter, Python, TypeScript), architecture logicielle, API design, bases de données (PostgreSQL, MySQL, Supabase), déploiement (Vercel, Azure, Render), Git/GitHub.
+
+**Gestion de projet / Project Management**
+Pilotage produit de bout en bout, gestion multi-projets simultanés (15+ produits livrés), Agile/Scrum, gestion de partenariats (institutions publiques togolaises), coordination stakeholders.
+
+**Formation IA / AI Training**
+Conception de programmes de formation IA (EduFast, Mikplanu), pédagogie appliquée à l'IA générative, création de contenu éducatif technique, formation en contexte multilingue ouest-africain.
+
+**Consulting IA / AI Consulting**
+Architecture de solutions IA sur mesure, intégration IA en entreprise (PayDunya, WhatsApp Business API), audit et recommandations techniques, Prompt Engineering avancé, intégration IA en contexte gouvernemental (FormaPro).
+
+**Stack technique complète**
+Python, JavaScript, TypeScript, PHP, HTML/CSS, PL/SQL, Dart (Flutter) · React, Next.js, Flutter, WordPress, Vite, Tailwind, Framer Motion · FastAPI, Django, Firebase, Supabase, Prisma, Node.js · MySQL, PostgreSQL · Prompt Engineering avancé, intégration IA générative (Gemini, GPT), OpenCV, YOLO, MediaPipe, modèles Gemma (inférence offline) · Three.js, GLSL · Azure, Vercel, Render · WhatsApp Business Cloud API, Africa's Talking (SMS), PayDunya (mobile money), Resend.
+
+## Projets
+
+- **Mikplanu** — Tuteur IA pédagogique multilingue (Ewé, Kabiyé, Yoruba), analyse de documents et génération de quiz. Stack : React, Gemini AI, Tailwind. Live : https://mikplanu.vercel.app
+- **EduFast** — Plateforme d'apprentissage numérique intelligente pour l'Afrique, IA éducative et gamification. Live : https://edufast.academy
+- **Clinique Plus** — Dossier médical numérique portable via QR code, accès aux données vitales même hors-ligne. Stack : Flutter. MVP : https://clinic-plus.onrender.com
+- **Smart Pressing** — Reconnaissance visuelle IA (YOLO) du linge, suivi temps réel. Stack : Python, YOLO, Supabase. Statut : privé, sur demande.
+- **SAYGOO Platform** — Plateforme logistique/douanes Afrique de l'Ouest (produit employeur). Statut : privé.
+- **AutoDoc Pro** — SaaS B2B de génération de documents pour hôtels et fintechs. Stack : React, Three.js. Statut : privé, sur demande.
+- **EcoScan Africa** — Classification IA des déchets et incitation au recyclage. Stack : YOLO. Statut : concept / en développement.
+- **FormaPro** — Plateforme multi-tenant de formation et communication interne (client pilote : institutions togolaises). Stack : Next.js 14, Supabase, Prisma, WhatsApp Business API. Statut : prototype, privé.
+- **EasyChina** — Plateforme e-commerce/trade Chine-Afrique. Stack : React, Vite, TypeScript, Supabase. Live : https://easychina.online
+- **CFA Express** — PWA de conversion de devises, en ligne et hors ligne. Stack : React. Live : https://cfa-express.vercel.app
+- **NOUS** — Journal de motivation PWA, hors ligne. Live : https://nous-2026.vercel.app
+- **Ce Soir On Mange Quoi ?** — Recettes économiques pour étudiants togolais, hors ligne. Stack : React, Vite. Live : https://ce-soir-on-mange-quoi.vercel.app
+- **LINKEDIN-Translator** — Génération de posts LinkedIn à fort engagement. Stack : React. Live : https://linkedin-trans.vercel.app/
+- **MediaCleaner-Redact-Pro** — Masquage automatique de données sensibles (texte, vidéo, PDF). Stack : FastAPI, OpenCV, React. Live : https://mediacleaner-redact-pro.onrender.com/
+- **Vortex** — Interface 3D expérimentale représentant le raisonnement d'une IA. Stack : Three.js, GLSL, React. Live : https://codorah-vortex.vercel.app/
+- **Lumina Elite** — Messagerie secrète gamifiée. Stack : React 19, Vite. Live : https://p-lumina.vercel.app/
+- **Coeur Réparé** — Mini-site No-Code, expérience émotionnelle interactive. Live : https://minisaintvalentin.my.canva.site/goumin
+- **Codorah** — Startup tech (voir Identité / Expérience). Live : https://jbkbusiness.my.canva.site/codorah
+- **barSafe** — SaaS de sécurisation pour établissements de nuit. Stack : TypeScript. Statut : privé, sur demande.
+- **Analytics Dashboard** — Pilotage KPI temps réel. Stack : React, Django, PostgreSQL. Statut : sur demande.
+
+## Certifications
+
+Advanced Python, PMP Basics, Agile Scrum Master, Introduction à l'Intelligence Artificielle, Project Management 101, Introduction à Flutter, Azure Fundamentals, Prompt Engineering with ChatGPT, Advanced Prompt Engineering, Introduction to Prompt Engineering with GitHub Copilot, Executive Assistant, Canva, Certificate of Participation (ELA26). Voir /certifications/ pour les justificatifs PDF.
+
+## Langues
+
+Français (Avancé), Anglais (Avancé), Éwé.

@@ -1,27 +1,47 @@
 import * as THREE from 'three';
 
-// 1. GESTION DU LOADER
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        const loader = document.getElementById('loader');
-        if (loader) loader.classList.add('loader-up');
-        AOS.init({ duration: 1000, once: true });
+// 1. GESTION DU LOADER + COMPTEURS ANIMES
+// Animation des compteurs — decouplee d'AOS pour qu'un echec du CDN AOS
+// (script externe) ne puisse jamais empecher les stats de s'incrementer.
+const runHeroCounters = () => {
+    const statNums = document.querySelectorAll('.hero-stat-num[data-count]');
+    statNums.forEach((el) => {
+        if (el.dataset.counted === 'true') return; // idempotent
+        el.dataset.counted = 'true';
+        const target = parseInt(el.dataset.count, 10) || 0;
+        const duration = 1200;
+        const startTime = performance.now();
+        const tick = (now) => {
+            const progress = Math.min(1, (now - startTime) / duration);
+            el.textContent = Math.floor(progress * target);
+            if (progress < 1) {
+                requestAnimationFrame(tick);
+            } else {
+                el.textContent = String(target); // valeur finale exacte garantie
+            }
+        };
+        requestAnimationFrame(tick);
+    });
+};
 
-        // Animated counters for hero stats
-        const statNums = document.querySelectorAll('.hero-stat-num[data-count]');
-        statNums.forEach(el => {
-            const target = parseInt(el.dataset.count, 10);
-            const duration = 1200;
-            const step = target / (duration / 16);
-            let current = 0;
-            const timer = setInterval(() => {
-                current += step;
-                if (current >= target) { current = target; clearInterval(timer); }
-                el.textContent = Math.floor(current);
-            }, 16);
-        });
-    }, 2100);
-});
+const initAfterLoad = () => {
+    const loader = document.getElementById('loader');
+    if (loader) loader.classList.add('loader-up');
+
+    // AOS est optionnel : on ne laisse pas un echec CDN casser la page.
+    if (typeof AOS !== 'undefined') {
+        try { AOS.init({ duration: 1000, once: true }); } catch (e) { /* noop */ }
+    }
+
+    runHeroCounters();
+};
+
+// Si le load a deja eu lieu (module differe, cache), on demarre quand meme.
+if (document.readyState === 'complete') {
+    setTimeout(initAfterLoad, 600);
+} else {
+    window.addEventListener('load', () => setTimeout(initAfterLoad, 2100));
+}
 
 // 2. BACKGROUND ANIME
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -293,10 +313,10 @@ window.addEventListener('scroll', () => {
 const roleTitle = document.querySelector('.role-title');
 if (roleTitle) {
     const roles = [
-        'IT Project Manager',
-        'Prompt Ingenieur',
-        'Developpeur Fullstack',
-        'AI Trainer'
+        'Full Stack Engineer',
+        'AI Solutions Architect',
+        'Fondatrice de Codorah',
+        'Full Stack Engineer @ SAYGOO'
     ];
 
     let roleIndex = 0;
@@ -503,99 +523,6 @@ if (resumeSection) {
 }
 
 // 6. PROJECT CASE STUDY PANEL
-const caseStudies = {
-    'EduFast': {
-        context: 'Objectif: Créer une plateforme d\'apprentissage numérique intelligente adaptée au contexte africain avec IA et mode offline.',
-        role: 'Role: Conception EdTech, intégration d\'une mascotte IA éducative et d\'un modèle freemium gamifié.',
-        result: 'Resultat: (Projet en cours) Plateforme pensée mobile-first avec des parcours d\'apprentissage interactifs.',
-        link: '#contact'
-    },
-    'SAYGOO Platform': {
-        context: 'Objectif: construire une plateforme web complete et evolutive pour centraliser les besoins metier.',
-        role: 'Role: architecture technique, backend, integration des donnees et stabilite applicative.',
-        result: 'Resultat: plateforme plus robuste, meilleure maintenabilite et base solide pour la croissance.',
-        link: '#contact'
-    },
-    'Clinique Plus': {
-        context: 'Contexte: Solution de santé numérique pour le Togo. Chaque patient dispose d\'un QR code médical personnel — scannable en urgence pour accéder instantanément à ses données vitales (groupe sanguin, allergies, traitements en cours), même hors-ligne.',
-        role: 'Rôle: Conception produit Flutter, architecture QR code sécurisé (chiffrement bout-en-bout, accès d\'urgence limité dans le temps), modèle Freemium (version gratuite survie + Premium 5 000 FCFA/an avec historique multi-cliniques et alertes médicaments).',
-        result: 'Résultat: Réduit les erreurs médicales dues au manque d\'historique. Le QR code peut être imprimé sur carte plastifiée ou bracelet. Partenariats prévus avec cliniques, pharmacies et assureurs.',
-        link: '#contact'
-    },
-    'CODORAH': {
-        context: 'Objectif: digitaliser education et innovation sociale via des solutions locales utiles.',
-        role: 'Role: fondatrice et lead tech, strategie produit, execution no-code/web et pilotage projet.',
-        result: 'Resultat: presence digitale active et offres mieux structurees pour les clients cibles.',
-        link: 'https://jbkbusiness.my.canva.site/codorah'
-    },
-    'Coeur Repare - Mini-site No-Code': {
-        context: 'Objectif: offrir une experience emotionnelle personnalisee via un mini test et des exercices adaptes.',
-        role: 'Role: concept UX, structure narrative et implementation no-code sur Canva.',
-        result: 'Resultat: experience engageante orientee progression de guerison, simple a partager.',
-        link: 'https://minisaintvalentin.my.canva.site/goumin'
-    },
-    'Portfolio 3D Personnel': {
-        context: 'Objectif: presenter profil, competences et projets dans une interface immersive moderne.',
-        role: 'Role: design UI/UX, animation 3D Three.js, optimisation performance et accessibilite.',
-        result: 'Resultat: portfolio plus memorable, interactif et aligne avec un positionnement premium.',
-        link: '#home'
-    },
-    'CFA Express': {
-        context: 'Objectif: faciliter la conversion de devises rapidement depuis mobile et desktop.',
-        role: 'Role: conception et developpement en React, architecture PWA et gestion du mode hors ligne.',
-        result: 'Resultat: application deployee sur Vercel, utilisable en ligne et hors ligne avec mise a jour des taux.',
-        link: 'https://cfa-express.vercel.app'
-    },
-    'NOUS': {
-        context: 'Objectif: proposer un espace quotidien de motivation et de journal personnel prive avec vues calendrier annuel et timeline.',
-        role: 'Role: conception produit PWA, moteur de 5000 messages self-love sur 12 ans, notifications, rappels et securite locale par code PIN Web Crypto.',
-        result: 'Resultat: application installable mobile/desktop, usage hors ligne, metadonnees meteo/localisation, indicateurs humeur et export du journal en Markdown.',
-        link: 'https://nous-2026.vercel.app'
-    },
-    'Ce Soir On Mange Quoi ?': {
-        context: 'Objectif: aider les etudiants togolais a trouver rapidement un repas simple et abordable avec les ingredients disponibles.',
-        role: 'Role: developpement React + Vite, architecture PWA offline-first, filtres dynamiques par ingredients et animations Framer Motion.',
-        result: 'Resultat: application web installable avec frigo virtuel, roue de choix aleatoire, mode budget serre (<500 FCFA) et fiches recettes express.',
-        link: 'https://ce-soir-on-mange-quoi.vercel.app'
-    },
-    'barSafe': {
-        context: 'Objectif: optimiser et sécuriser la gestion des établissements de nuit.',
-        role: 'Role: Conception SaaS en TypeScript, gestion rôles (serveurs, caissiers, admin).',
-        result: 'Resultat: Réduction des pertes, limitations des fraudes. (Projet en cours)',
-        link: '#contact'
-    },
-    'LINKEDIN-Translator': {
-        context: 'Objectif: Transformer le langage courant en posts structurés et générateurs d\'engagement LinkedIn.',
-        role: 'Role: Développement Frontend React, logique d\'algorithme viralité sans IA classique.',
-        result: 'Resultat: Interface Web générant du contenu viral instantanément.',
-        link: 'https://linkedin-trans.vercel.app/'
-    },
-    'MediaCleaner-Redact-Pro': {
-        context: 'Objectif: Solution orientée confidentialité pour le masquage automatique de données.',
-        role: 'Role: Architecture cloud-native FastAPI, pipelines asynchrones EasyOCR/OpenCV, frontend React.',
-        result: 'Resultat: Système complet traitant textes, vidéos et PDFs avec un haut standard sécuritaire.',
-        link: '#contact'
-    },
-    'Vortex': {
-        context: 'Objectif: Créer une interface expérimentale 3D pour représenter l\'IA Thinking Process.',
-        role: 'Role: Graphes 3D, Shaders GLSL avancés et animations via React Three Fiber & GSAP.',
-        result: 'Resultat: Expérience générative fluide et interactive repoussant l\'immersion.',
-        link: 'https://codorah-vortex.vercel.app/'
-    },
-    'Lumina Elite (Puzzle)': {
-        context: 'Objectif: Gamifier la messagerie secrète à travers un classique.',
-        role: 'Role: Frontend React 19, Vite, intégration logique cryptoludique de victoire.',
-        result: 'Resultat: Une app virale et engageante pour échanger des secrets sous forme ludique.',
-        link: 'https://p-lumina.vercel.app/'
-    },
-    'Analytics Dashboard': {
-        context: 'Objectif: Consolider les data metrics SaaS et pilotage KPI en temps réel.',
-        role: 'Role: Stack fullstack Django (Back) + React (Front) et modélisation PostgreSQL.',
-        result: 'Resultat: Suivi temps réel ultra-performant pour la prise de décision stratégique.',
-        link: '#contact'
-    }
-};
-
 const caseModal = document.getElementById('caseModal');
 const caseTitle = document.getElementById('caseTitle');
 const caseContext = document.getElementById('caseContext');
@@ -610,15 +537,38 @@ const closeCaseModal = () => {
     document.body.style.overflow = '';
 };
 
-const openCaseModal = (title) => {
-    if (!caseModal || !caseStudies[title]) return;
-    const data = caseStudies[title];
+// La donnee (contexte/role/resultat/lien) vit dans le bloc .case-data cache
+// a l'interieur de chaque carte : visible aux crawlers qui ne executent pas
+// le JS, et source unique (plus de duplication a resynchroniser avec les
+// cartes projet, contrairement a l'ancien objet JS caseStudies).
+const openCaseModal = (card) => {
+    const data = card.querySelector('.case-data');
+    const title = card.querySelector('h3')?.textContent?.trim();
+    if (!caseModal || !data || !title) return;
+
+    const context = data.querySelector('.case-data-context')?.textContent || '';
+    const role = data.querySelector('.case-data-role')?.textContent || '';
+    const result = data.querySelector('.case-data-result')?.textContent || '';
+    const link = data.querySelector('.case-data-link')?.getAttribute('href') || '#contact';
+
     caseTitle.textContent = title;
-    caseContext.textContent = data.context;
-    caseRole.textContent = data.role;
-    caseResult.textContent = data.result;
-    caseLink.setAttribute('href', data.link);
-    caseLink.setAttribute('target', data.link.startsWith('#') ? '_self' : '_blank');
+    caseContext.textContent = context;
+    caseRole.textContent = role;
+    caseResult.textContent = result;
+
+    // Un lien placeholder (#, #contact, #home...) n'est pas un vrai projet :
+    // on remplace le bouton "Voir le projet" mort par une mention adaptee.
+    const isRealLink = link && !link.startsWith('#');
+    if (isRealLink) {
+        caseLink.setAttribute('href', link);
+        caseLink.setAttribute('target', '_blank');
+        caseLink.textContent = 'Voir le projet';
+    } else {
+        caseLink.setAttribute('href', '#contact');
+        caseLink.setAttribute('target', '_self');
+        caseLink.textContent = 'Projet privé — échanger';
+    }
+
     caseModal.classList.add('open');
     caseModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -626,7 +576,8 @@ const openCaseModal = (title) => {
 
 document.querySelectorAll('.project-card').forEach((card) => {
     const title = card.querySelector('h3')?.textContent?.trim();
-    if (!title || !caseStudies[title]) return;
+    const hasCaseData = card.querySelector('.case-data');
+    if (!title || !hasCaseData) return;
     const info = card.querySelector('.project-info');
     if (!info || info.querySelector('.case-trigger')) return;
 
@@ -634,7 +585,7 @@ document.querySelectorAll('.project-card').forEach((card) => {
     btn.type = 'button';
     btn.className = 'case-trigger';
     btn.textContent = 'Case Study';
-    btn.addEventListener('click', () => openCaseModal(title));
+    btn.addEventListener('click', () => openCaseModal(card));
     info.appendChild(btn);
 });
 
